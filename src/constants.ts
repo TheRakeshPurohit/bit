@@ -262,6 +262,7 @@ export const CFG_PROXY_STRICT_SSL = 'proxy.strict_ssl';
 export const CFG_PROXY_CERT = 'proxy.cert';
 export const CFG_PROXY_KEY = 'proxy.key';
 export const CFG_PROXY_NO_PROXY = 'proxy.no_proxy';
+export const CFG_PROXY_LOCAL_ADDRESS = 'proxy.local_address';
 
 export const CFG_CONCURRENCY_IO = 'concurrency.io';
 export const CFG_CONCURRENCY_COMPONENTS = 'concurrency.components';

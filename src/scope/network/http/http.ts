@@ -27,6 +27,7 @@ import {
   CFG_PROXY_KEY,
   CFG_PROXY_NO_PROXY,
   CFG_PROXY_STRICT_SSL,
+  CFG_PROXY_LOCAL_ADDRESS,
 } from '../../../constants';
 import logger from '../../../logger/logger';
 import { ObjectItemsStream, ObjectList } from '../../objects/object-list';
@@ -52,6 +53,7 @@ export type ProxyConfig = {
   key?: string;
   noProxy?: boolean | string;
   strictSSL?: boolean;
+  localAddress?: string;
 };
 
 type Agent = HttpsProxyAgent | HttpAgent | HttpAgent.HttpsAgent | HttpProxyAgent | SocksProxyAgent | undefined;
@@ -100,6 +102,7 @@ export class Http implements Network {
       key: obj[CFG_PROXY_KEY],
       noProxy: obj[CFG_PROXY_NO_PROXY],
       strictSSL: obj[CFG_PROXY_STRICT_SSL],
+      localAddress: obj[CFG_PROXY_LOCAL_ADDRESS],
     };
   }
 
