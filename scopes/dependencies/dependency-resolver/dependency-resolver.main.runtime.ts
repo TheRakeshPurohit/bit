@@ -127,6 +127,11 @@ export interface DependencyResolverWorkspaceConfig {
   noProxy?: string;
 
   /**
+   * The IP address of the local interface to use when making connections to the npm registry.
+   */
+  localAddress?: string;
+
+  /**
    * If true, then Bit will add the "--strict-peer-dependencies" option when invoking package managers.
    * This causes "bit install" to fail if there are unsatisfied peer dependencies, which is
    * an invalid state that can cause build failures or incompatible dependency versions.
@@ -543,6 +548,7 @@ export class DependencyResolverMain {
       httpProxy: this.config.proxy,
       httpsProxy: this.config.httpsProxy || this.config.proxy,
       key: this.config.key,
+      localAddress: this.config.localAddress,
       noProxy: this.config.noProxy,
       strictSSL: this.config.strictSsl?.toLowerCase() === 'true',
     };

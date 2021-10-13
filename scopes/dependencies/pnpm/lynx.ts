@@ -83,6 +83,7 @@ async function createStoreController(
     ca: proxyConfig?.ca,
     cert: proxyConfig?.cert,
     key: proxyConfig?.key,
+    localAddress: proxyConfig?.localAddress,
     noProxy: proxyConfig?.noProxy,
     strictSsl: proxyConfig.strictSSL,
   };
@@ -105,6 +106,7 @@ async function generateResolverAndFetcher(
     ca: proxyConfig?.ca,
     cert: proxyConfig?.cert,
     key: proxyConfig?.key,
+    localAddress: proxyConfig?.localAddress,
     noProxy: proxyConfig?.noProxy,
     strictSsl: proxyConfig.strictSSL,
   };
