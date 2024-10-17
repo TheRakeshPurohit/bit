@@ -29,7 +29,7 @@ export class CLIRawRoute implements Route {
 
   middlewares = [
     async (req: Request, res: Response) => {
-      const { command, pwd, envBitFeatures, ttyPath } = req.body;
+      const { command, pwd, envBitFeatures, ttyPath, isPty } = req.body;
       this.logger.debug(`cli-raw server: got request for ${command}`);
       if (pwd && !pwd.startsWith(process.cwd())) {
         throw new Error(`bit-server is running on a different directory. bit-server: ${process.cwd()}, pwd: ${pwd}`);
@@ -51,7 +51,7 @@ export class CLIRawRoute implements Route {
           fs.writeSync(fileHandle, chunk.toString());
           return originalStderrWrite.call(process.stdout, chunk, encoding, callback);
         };
-      } else {
+      } else if (!isPty) {
         process.env.BIT_CLI_SERVER_NO_TTY = 'true';
         loader.shouldSendServerEvents = true;
       }
@@ -106,7 +106,8 @@ export class CLIRawRoute implements Route {
           delete process.env.BIT_CLI_SERVER_NO_TTY;
           loader.shouldSendServerEvents = false;
         }
-        this.logger.clearStatusLine();
+        // for Pty, this line causes an error "Error: read ECONNRESET" on the socket
+        if (!isPty) this.logger.clearStatusLine();
         // change chalk back to false, otherwise, the IDE will have colors. (this is a global setting)
         chalk.enabled = false;
         if (shouldReloadFeatureToggle) {
